@@ -9,14 +9,16 @@ const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
-    loading: true,
+    loading: false,
   };
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
+  //   Get Initial Users(testing purposes)
   const fetchUsers = async () => {
-    const response = await axios.get(`${GITHUB_URL}/users`);
+    setLoading();
 
+    const response = await axios.get(`${GITHUB_URL}/users`);
     const data = await response.data;
 
     dispatch({
@@ -24,6 +26,9 @@ export const GithubProvider = ({ children }) => {
       payload: data,
     });
   };
+
+  //   Set Loading
+  const setLoading = () => dispatch({ type: "SET_LOADING" });
 
   return (
     <GithubContext.Provider
