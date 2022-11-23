@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Spinner from "../layout/Spinner";
 
 const UserResults = () => {
   const [users, setUsers] = useState([]);
@@ -7,7 +8,7 @@ const UserResults = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  });
 
   const fetchUsers = async () => {
     const response = await axios.get(
@@ -30,7 +31,7 @@ const UserResults = () => {
       </div>
     );
   } else {
-    return <h3>Loading...</h3>;
+    return <Spinner />;
   }
 };
 
